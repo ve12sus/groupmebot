@@ -49,6 +49,3 @@ def botpost(text):
 def paging(before_id):
     r = requsts.get('https://api.groupme.com/v3/groups/31129835/messages?token='+
             token + '&before_id=' + before_id)
-
-getMessages()
-getMessages('149621356229647964')
