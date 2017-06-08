@@ -8,27 +8,17 @@ def dial():
     thestuff = r.json()
 
     messages = thestuff['response']['messages']
-    print len(messages)
-    print messages[19]['id']
-    for message in messages:
-        print message['text']
-        b = "(?P<url>https?://[^\s]+)"
-        p = re.compile(b)
-        m = p.match(message['text'])
-        if m:
-            print 'match found', m.group()
-        else:
-            print 'no matches'
+    getLink(messages)
 
-def getLink(messsages):
+def getLink(messages):
     for message in messages:
         b = "(?P<url>https?://[^\s]+)"
         p = re.compile(b)
         m = p.match(message['text'])
-        if m:
-            botpost(meessage['text'])
+        if m and message['sender_id'] != '393017':
+            botpost(m.group())
         else:
-            continue
+            pass
 
 def getMessages(before_id=None):
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
