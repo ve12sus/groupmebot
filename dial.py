@@ -25,17 +25,11 @@ def getMessages(before_id=None):
     msg_api = 'https://api.groupme.com/v3/groups/31129835/messages?token='
     if before_id:
         r = requests.get(msg_api + token + '&before_id=' + before_id)
-        print r.json()
     else:
         r = requests.get(msg_api + token)
-        print r.json()
         
 def botpost(text):
     payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
-
-def paging(before_id):
-    r = requsts.get('https://api.groupme.com/v3/groups/31129835/messages?token='+
-            token + '&before_id=' + before_id)
