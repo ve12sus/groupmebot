@@ -1,11 +1,9 @@
 import requests, re
 
 def dial():
-    token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
-    r = requests.get('https://api.groupme.com/v3/groups/31129835/messages?token='
-                    + token)
+    response = getMessages()
 
-    thestuff = r.json()
+    thestuff = response.json()
 
     messages = thestuff['response']['messages']
     getLink(messages)
@@ -25,8 +23,10 @@ def getMessages(before_id=None):
     msg_api = 'https://api.groupme.com/v3/groups/31129835/messages?token='
     if before_id:
         r = requests.get(msg_api + token + '&before_id=' + before_id)
+        return r
     else:
         r = requests.get(msg_api + token)
+        return r
         
 def botpost(text):
     payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
