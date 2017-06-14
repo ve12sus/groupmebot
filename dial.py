@@ -25,7 +25,7 @@ def getMessages(before_id=None):
         r = requests.get(msg_api + token + '&before_id=' + before_id)
         return r
     else:
-        r = requests.get(msg_api + token)
+        r = requests.get(msg_api + token + '&limit=100')
         return r
         
 def botpost(text):
@@ -33,3 +33,7 @@ def botpost(text):
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
+
+def get_before_id(messages):
+    messages[last]
+    return
