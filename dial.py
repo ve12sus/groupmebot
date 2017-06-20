@@ -1,13 +1,5 @@
 import requests, re
 
-def dial():
-    response = getMessages()
-
-    thestuff = response.json()
-
-    messages = thestuff['response']['messages']
-    getLink(messages)
-
 def getLink(messages):
     for message in messages:
         b = "(?P<url>https?://[^\s]+)"
@@ -35,5 +27,13 @@ def botpost(text):
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
 
 def get_before_id(messages):
-    messages[last]
-    return
+    return messages[19]['id']
+
+def paging(pages):
+    before_id = None
+    for i in range(pages):
+        response = getMessages(before_id)
+        thestuff = response.json()
+        messages = thestuff['response']['messages']
+        getLink(messages)
+        before_id = get_before_id(messages)
