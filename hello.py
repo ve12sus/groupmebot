@@ -12,7 +12,11 @@ def hello():
         data = request.get_json()
         content = data['text']
         if re.match(r'/ links', content):
-            dial.paging(3)
+            name = dial.captureName(content)
+            if name:
+                dial.paging(name, 3)
+            else:
+                dial.paging(3)
         else:
             return 'done'
 
