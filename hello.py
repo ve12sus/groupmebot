@@ -14,7 +14,7 @@ def hello():
         if re.match(r'/ links', content):
             name = dial.captureName(content)
             if name:
-                dial.paging(name, 3)
+                dial.paging(3, name)
             else:
                 dial.paging(3)
         else:

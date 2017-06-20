@@ -1,15 +1,5 @@
 import requests, re
 
-def getLink(messages):
-    for message in messages:
-        b = "(?P<url>https?://[^\s]+)"
-        p = re.compile(b)
-        m = p.match(message['text'])
-        if m and message['sender_id'] != '393017':
-            botpost(m.group())
-        else:
-            pass
-
 def getLink(messages, name=None):
     for message in messages:
         b = "(?P<url>https?://[^\s]+)"
