@@ -11,13 +11,13 @@ def hello():
     elif request.method == 'POST':
         data = request.get_json()
         content = data['text']
-        if re.match(r'/ links', content):
+        if re.match(r'/links', content):
             name = dial.captureName(content)
             if name:
                 dial.paging(3, name)
             else:
                 dial.paging(3)
-        elif re.match(r'/ likes', content):
+        elif re.match(r'/likes', content):
             name = dial.captureName(content)
             if name:
                 dial.getLikes(3, name)
