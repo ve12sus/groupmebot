@@ -37,10 +37,9 @@ def getLikes(pages, name):
     members = getGroupMembers()
     for member in members:
         if member['user_id'] == person:
-            botPost(name + 'was most liked by ' + member['nickname']
+            botPost(name + 'was most liked by ' + member['nickname'])
         else:
             pass
-        before_id = get_before_id(messages)
     
 def getMessages(before_id=None):
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
