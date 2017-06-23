@@ -30,6 +30,8 @@ def getLikes(pages, name):
                         stuff[user_id] = 1
                     else:
                         stuff[user_id] + 1
+            else:
+                pass
         before_id = get_before_id(messages)
     person = keywithmaxvalue(likes)
     members = getGroupMembers()
