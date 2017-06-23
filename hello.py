@@ -17,6 +17,12 @@ def hello():
                 dial.paging(3, name)
             else:
                 dial.paging(3)
+        elif re.match(r'/ likes', content):
+            name = dial.captureName(content)
+            if name:
+                dial.getLikes(3, name)
+            else:
+                dial.botPost('Nobody by that name is in this group.')
         else:
             return 'done'
 

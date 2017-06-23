@@ -16,6 +16,30 @@ def getLink(messages, name=None):
         else:
             pass
 
+def getLikes(pages, name):
+    before_id = None
+    likes = {}
+    for i in range(pages):
+        response = getMessages(before_id)
+        thestuff = response.json()
+        messages = thestuff['response']['messages']
+        for message in messages:
+            if message['name'] == name and message['favorited_by']:
+                for user_id in messages['favorited_by']:
+                    if not stuff[user_id]:
+                        stuff[user_id] = 1
+                    else:
+                        stuff[user_id] + 1
+        before_id = get_before_id(messages)
+    person = keywithmaxvalue(likes)
+    members = getGroupMembers()
+    for member in members:
+        if member['user_id'] == person:
+            botPost(name + 'was most liked by ' + member['nickname']
+        else:
+            pass
+        before_id = get_before_id(messages)
+    
 def getMessages(before_id=None):
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/31129835/messages?token='
@@ -52,3 +76,16 @@ def captureName(saying):
     p = re.compile(b)                                                           
     m = p.search(saying)                                                        
     return m.group()[1:]
+
+def getGroupMembers():
+    token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
+    group_api = 'https://api.groupme.com/v3/groups/31129835?token='
+    r = requests.get(group_api + token)
+    return r['members']
+
+def keywithmaxval(d):
+    """ a) create a list of the dict's keys and values; 
+        b) return the key with the max value"""  
+    v=list(d.values())
+    k=list(d.keys())
+    return k[v.index(max(v))]
