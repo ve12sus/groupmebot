@@ -45,7 +45,7 @@ def getLikes(pages, name):
     
 def getMessages(before_id=None):
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
-    msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
+    msg_api = 'https://api.groupme.com/v3/groups/31129835/messages?token='
     if before_id:
         r = requests.get(msg_api + token + '&before_id=' + before_id)
         return r
@@ -82,7 +82,7 @@ def captureName(saying):
 
 def getGroupMembers():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
-    group_api = 'https://api.groupme.com/v3/groups/22856815?token='
+    group_api = 'https://api.groupme.com/v3/groups/31129835?token='
     r = requests.get(group_api + token)
     thestuff = r.json()
     return thestuff
