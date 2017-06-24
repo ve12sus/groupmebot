@@ -22,7 +22,7 @@ def hello():
             if name:
                 dial.getLikes(3, name)
             else:
-                dial.botPost('Nobody by that name is in this group.')
+                dial.botpost('Nobody by that name is in this group.')
         else:
             return 'done'
 

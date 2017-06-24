@@ -1,4 +1,4 @@
-import requests, re, pprint
+import requests, re 
 
 def getLink(messages, name=None):
     for message in messages:
