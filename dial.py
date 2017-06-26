@@ -6,7 +6,7 @@ def parse(req_data):
         botpost("You said likes.")
         name = captureName(text)
         if name:
-            botpost("your name is " + name)
+            getLikes(3, name)
         else:
             botpost("you didn't enter a name")
 
@@ -44,20 +44,28 @@ def getLikes(pages, name):
             else:
                 pass
         before_id = get_before_id(messages)
-    person = keywithmaxval(likes)
-    response = getGroupMembers()
-    members = response['response']['members']
-    for member in members:
-        if member['user_id'] == person:
-            botpost(name + ' was most liked by ' + member['nickname'])
-        else:
-            pass
+    if person = keywithmaxval(likes):
+        response = getGroupMembers()
+        thestuff = response.json()
+        members = thestuff['response']['members']
+        for member in members:
+            if member['user_id'] == person:
+                botpost(name + ' was most liked by ' + member['nickname'])
+    else:
+        botpost('No one likes ' + name)
     
+def getGroupMembers():
+    token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
+    group_api = 'https://api.groupme.com/v3/groups/22856815?token='
+    r = requests.get(group_api + token)
+    return r
+
 def getMessages(before_id=None):
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
     if before_id:
-        r = requests.get(msg_api + token + '&before_id=' + before_id)
+        r = requests.get(msg_api + token + '&before_id=' + before_id + 
+                '&limit=100')
         return r
     else:
         r = requests.get(msg_api + token + '&limit=100')
@@ -89,13 +97,6 @@ def captureName(text):
     p = re.compile(b)                                                           
     m = p.search(text)                                                        
     return m.group()[1:]
-
-def getGroupMembers():
-    token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
-    group_api = 'https://api.groupme.com/v3/groups/22856815?token='
-    r = requests.get(group_api + token)
-    thestuff = r.json()
-    return thestuff
 
 def keywithmaxval(d):
     """ a) create a list of the dict's keys and values; 
