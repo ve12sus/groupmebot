@@ -2,7 +2,7 @@ import json, re, requests
 
 def parse(req_data):
     text = req_data['text']
-    if re.match(r'/likes', content):
+    if re.match(r'/likes', text):
         botpost('You said likes.')
 
 def getLink(messages, name=None):

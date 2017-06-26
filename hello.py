@@ -8,7 +8,7 @@ app = Flask(__name__)
 def hello():
     if request.method == 'GET':
         pass
-    else request.method == 'POST':
+    elif request.method == 'POST':
         req_data = request.get_json()
         dial.parse(req_data)
 
