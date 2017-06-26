@@ -32,7 +32,7 @@ def getLikes(name):
     response = getMessages()
     thestuff = response.json()
     messages = thestuff['response']['messages']
-    botpost(messages['0'])
+    botpost(messages)
 #        for message in messages:
 #            if message['name'] == name and message['favorited_by']:
 #                for user_id in message['favorited_by']:
@@ -63,7 +63,7 @@ def getGroupMembers():
 def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
-    r = requests.get(msg_api + token + '&limit=100')
+    r = requests.get(msg_api + token)
     return r
         
 def botpost(text):
