@@ -32,7 +32,7 @@ def getLikes(name):
     response = getMessages()
     thestuff = response.json()
     messages = thestuff['response']['messages']
-    botpost(messages)
+    botpost(messages['0'])
 #        for message in messages:
 #            if message['name'] == name and message['favorited_by']:
 #                for user_id in message['favorited_by']:
