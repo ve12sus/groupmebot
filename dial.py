@@ -3,7 +3,12 @@ import json, re, requests
 def parse(req_data):
     text = req_data['text']
     if re.match(r'/likes', text):
-        botpost('You said likes.')
+        botpost("You said likes.")
+        name = captureName(text)
+        if name:
+            botpost("your name is " + name)
+        else:
+            botpost("you didn't enter a name")
 
 def getLink(messages, name=None):
     for message in messages:
@@ -79,10 +84,10 @@ def paging(pages, name=None):
             getLink(messages)
         before_id = get_before_id(messages)
 
-def captureName(saying):                                                        
+def captureName(text):                                                        
     b = "@(.*)"                                                                
     p = re.compile(b)                                                           
-    m = p.search(saying)                                                        
+    m = p.search(text)                                                        
     return m.group()[1:]
 
 def getGroupMembers():
