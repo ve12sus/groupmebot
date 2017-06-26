@@ -27,13 +27,13 @@ def getLink(messages, name=None):
             pass
 
 def getLikes(name):
-    botpost(name)
-#    before_id = Noe
+    before_id = None
 #    likes = {}
-#    for i in range(pages):
-#        response = getMessages(before_id)
-#        thestuff = response.json()
-#        messages = thestuff['response']['messages']
+#    for i in range(3):
+    response = getMessages(before_id)
+    thestuff = response.json()
+    messages = thestuff['response']['messages']
+    botpost(messages['0'])
 #        for message in messages:
 #            if message['name'] == name and message['favorited_by']:
 #                for user_id in message['favorited_by']:
