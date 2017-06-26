@@ -6,7 +6,7 @@ def parse(req_data):
         botpost("You said likes.")
         name = captureName(text)
         if name:
-            getLikes(3, name)
+            getLikes(name)
         else:
             botpost("you didn't enter a name")
 
@@ -26,33 +26,34 @@ def getLink(messages, name=None):
         else:
             pass
 
-def getLikes(pages, name):
-    before_id = None
-    likes = {}
-    for i in range(pages):
-        response = getMessages(before_id)
-        thestuff = response.json()
-        messages = thestuff['response']['messages']
-        for message in messages:
-            if message['name'] == name and message['favorited_by']:
-                for user_id in message['favorited_by']:
-                    default = 'no name'
-                    if likes.get(user_id, default) == 'no name':
-                        likes[user_id] = 1
-                    else:
-                        likes[user_id] += 1
-            else:
-                pass
-        before_id = get_before_id(messages)
-    if person = keywithmaxval(likes):
-        response = getGroupMembers()
-        thestuff = response.json()
-        members = thestuff['response']['members']
-        for member in members:
-            if member['user_id'] == person:
-                botpost(name + ' was most liked by ' + member['nickname'])
-    else:
-        botpost('No one likes ' + name)
+def getLikes(name):
+    botpost(name)
+#    before_id = Noe
+#    likes = {}
+#    for i in range(pages):
+#        response = getMessages(before_id)
+#        thestuff = response.json()
+#        messages = thestuff['response']['messages']
+#        for message in messages:
+#            if message['name'] == name and message['favorited_by']:
+#                for user_id in message['favorited_by']:
+#                    default = 'no name'
+#                    if likes.get(user_id, default) == 'no name':
+#                        likes[user_id] = 1
+#                    else:
+#                        likes[user_id] += 1
+#            else:
+#                pass
+#        before_id = get_before_id(messages)
+#    if person = keywithmaxval(likes):
+#        response = getGroupMembers()
+#        thestuff = response.json()
+#        members = thestuff['response']['members']
+#        for member in members:
+#            if member['user_id'] == person:
+#                botpost(name + ' was most liked by ' + member['nickname'])
+#    else:
+#        botpost('No one likes ' + name)
     
 def getGroupMembers():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
