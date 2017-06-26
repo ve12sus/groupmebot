@@ -27,10 +27,9 @@ def getLink(messages, name=None):
             pass
 
 def getLikes(name):
-    before_id = None
 #    likes = {}
 #    for i in range(3):
-    response = getMessages(before_id)
+    response = getMessages()
     thestuff = response.json()
     messages = thestuff['response']['messages']
     botpost(messages['0'])
@@ -61,16 +60,11 @@ def getGroupMembers():
     r = requests.get(group_api + token)
     return r
 
-def getMessages(before_id=None):
+def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
-    if before_id:
-        r = requests.get(msg_api + token + '&before_id=' + before_id + 
-                '&limit=100')
-        return r
-    else:
-        r = requests.get(msg_api + token + '&limit=100')
-        return r
+    r = requests.get(msg_api + token + '&limit=100')
+    return r
         
 def botpost(text):
     payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
