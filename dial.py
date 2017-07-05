@@ -5,8 +5,7 @@ def parse(req_data):
     if re.match(r'/likes', text):
         name = captureName(text)
         if name:
-            botpost(name)
-#            getLikes(name)
+            getLikes(name)
         else:
             botpost("incorrect username")
 
@@ -33,9 +32,7 @@ def getLikes(name):
     thestuff = response.json()
     messages = thestuff['response']['messages']
     for message in messages:
-        print message['name']
         if message['name'] == name and len(message['favorited_by']) != 0:
-            print message['favorited_by']
             for user_id in message['favorited_by']:
                 if user_id in likes:
                     likes[user_id] += 1
