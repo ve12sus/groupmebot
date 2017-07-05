@@ -1,4 +1,4 @@
-import json, re, requests
+import json, re, requests, pprint
 
 def parse(req_data):
     text = req_data['text']
@@ -8,7 +8,7 @@ def parse(req_data):
         if name:
             getLikes(name)
         else:
-            botpost("you didn't enter a name")
+            botpost("incorrect username")
 
 def getLink(messages, name=None):
     for message in messages:
@@ -27,43 +27,46 @@ def getLink(messages, name=None):
             pass
 
 def getLikes(name):
-#    likes = {}
+    likes = {}
 #    for i in range(3):
     response = getMessages()
     thestuff = response.json()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(thestuff['response']['messages'])
     messages = thestuff['response']['messages']
-    botpost(messages['0'])
-#        for message in messages:
-#            if message['name'] == name and message['favorited_by']:
-#                for user_id in message['favorited_by']:
-#                    default = 'no name'
-#                    if likes.get(user_id, default) == 'no name':
-#                        likes[user_id] = 1
-#                    else:
-#                        likes[user_id] += 1
-#            else:
-#                pass
-#        before_id = get_before_id(messages)
-#    if person = keywithmaxval(likes):
-#        response = getGroupMembers()
-#        thestuff = response.json()
-#        members = thestuff['response']['members']
-#        for member in members:
-#            if member['user_id'] == person:
-#                botpost(name + ' was most liked by ' + member['nickname'])
-#    else:
-#        botpost('No one likes ' + name)
+    for message in messages:
+        print message['name']
+        if message['name'] == name and len(message['favorited_by']) != 0:
+            print message['favorited_by']
+            for user_id in message['favorited_by']:
+                if user_id in likes:
+                    likes[user_id] += 1
+                else:
+                    likes[user_id] = 1
+        else:
+            print 'no'
+    pp.pprint(likes)
+    try:
+        person = keywithmaxval(likes)
+        members = getGroupMembers()
+        for member in members:
+            if member['user_id'] == person:
+                botpost(member['nickname'] + ' liked ' + name + ' the most.')
+    except ValueError:
+        botpost('nobody liked ' + name + ' =/')
     
 def getGroupMembers():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     group_api = 'https://api.groupme.com/v3/groups/22856815?token='
     r = requests.get(group_api + token)
-    return r
+    pp = pprint.PrettyPrinter(indent=4)
+    thestuff = r.json()
+    return thestuff['response']['members']
 
 def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
-    r = requests.get(msg_api + token)
+    r = requests.get(msg_api + token + '&limit=100')
     return r
         
 def botpost(text):
@@ -91,7 +94,10 @@ def captureName(text):
     b = "@(.*)"                                                                
     p = re.compile(b)                                                           
     m = p.search(text)                                                        
-    return m.group()[1:]
+    if m:
+        return m.group()[1:]
+    else:
+        return None
 
 def keywithmaxval(d):
     """ a) create a list of the dict's keys and values; 
