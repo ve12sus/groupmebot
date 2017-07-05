@@ -5,7 +5,8 @@ def parse(req_data):
     if re.match(r'/likes', text):
         name = captureName(text)
         if name:
-            getLikes(name)
+            botpost(text)
+#            getLikes(name)
         else:
             botpost("incorrect username")
 
