@@ -3,7 +3,7 @@ import json, re, requests, pprint
 def parse(req_data):
     text = req_data['text']
     if re.match(r'/likes', text):
-        botpost("You said likes.")
+#        botpost("You said likes.")
         name = captureName(text)
         if name:
             getLikes(name)
@@ -31,8 +31,8 @@ def getLikes(name):
 #    for i in range(3):
     response = getMessages()
     thestuff = response.json()
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(thestuff['response']['messages'])
+#    pp = pprint.PrettyPrinter(indent=4)
+#    pp.pprint(thestuff['response']['messages'])
     messages = thestuff['response']['messages']
     for message in messages:
         print message['name']
@@ -51,7 +51,8 @@ def getLikes(name):
         members = getGroupMembers()
         for member in members:
             if member['user_id'] == person:
-                botpost(member['nickname'] + ' liked ' + name + ' the most.')
+                botpost(member['nickname'] + ' liked ' + name +
+                        ' the most.(Last 100 messages)')
     except ValueError:
         botpost('nobody liked ' + name + ' =/')
     
