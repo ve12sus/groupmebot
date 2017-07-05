@@ -1,4 +1,4 @@
-import json, re, requests, pprint
+import json, re, requests
 
 def parse(req_data):
     text = req_data['text']
@@ -42,7 +42,6 @@ def getLikes(name):
                     likes[user_id] = 1
         else:
             print 'no'
-    pp.pprint(likes)
     try:
         person = keywithmaxval(likes)
         members = getGroupMembers()
@@ -57,7 +56,6 @@ def getGroupMembers():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     group_api = 'https://api.groupme.com/v3/groups/22856815?token='
     r = requests.get(group_api + token)
-    pp = pprint.PrettyPrinter(indent=4)
     thestuff = r.json()
     return thestuff['response']['members']
 
