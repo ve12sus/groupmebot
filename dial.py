@@ -68,6 +68,7 @@ def botpost(text):
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
+    return 'ok'
 
 def get_before_id(messages):
     return messages[19]['id']
