@@ -11,6 +11,7 @@ def hello():
     elif request.method == 'POST':
         req_data = request.get_json()
         return dial.parse(req_data)
+    return 'okay'
 
 if __name__ == "__main__":
     app.run()
