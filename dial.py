@@ -39,7 +39,7 @@ def getLikes(name):
                 else:
                     likes[user_id] = 1
         else:
-            print 'no'
+            pass
     try:
         person = keywithmaxval(likes)
         members = getGroupMembers()
