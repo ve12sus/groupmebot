@@ -10,7 +10,7 @@ def hello():
         pass
     elif request.method == 'POST':
         req_data = request.get_json()
-        dial.parse(req_data)
+        return dial.parse(req_data)
 
 if __name__ == "__main__":
     app.run()
