@@ -3,11 +3,11 @@ import json, re, requests
 def parse(req_data):
     text = req_data['text']
     if re.match(r'/likes', text):
-        name = captureName(text)
-        if name:
-            getLikes(name)
-        else:
-            botpost("incorrect username")
+        try:
+            name = captureName(text)
+            print name
+        except None:
+            print 'No name entered'
 
 def getLink(messages, name=None):
     for message in messages:

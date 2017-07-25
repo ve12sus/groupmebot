@@ -11,6 +11,7 @@ def hello():
     elif request.method == 'POST':
         resp = request.get_json(force=True)
         print resp
+        dial.parse(resp)
         return 'Post'
 
 if __name__ == "__main__":
