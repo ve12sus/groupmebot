@@ -6,7 +6,7 @@ def parse(req_data):
         try:
             name = captureName(text)
             print name
-        except None:
+        except ValueError:
             print 'No name entered'
 
 def getLink(messages, name=None):
