@@ -5,7 +5,7 @@ def parse(req_data):
     if re.match(r'/likes', text):
         try:
             name = captureName(text)
-            if name is not None:
+            if name:
                 print name
             else:
                 print 'No name entered'
