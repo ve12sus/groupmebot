@@ -93,7 +93,10 @@ def captureName(text):
     p = re.compile(b)                                                           
     m = p.search(text)                                                        
     if m:
-        return m.group()[1:]
+        if m.group():
+            return m.group()[1:]
+        else:
+            return None
     else:
         return None
 
