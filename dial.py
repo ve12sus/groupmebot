@@ -7,6 +7,7 @@ def parse(req_data):
             name = captureName(text)
             if name:
                 print name
+                getLikes(name)
             else:
                 print 'No name entered'
         except ValueError:
