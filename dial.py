@@ -34,6 +34,7 @@ def getLikes(name):
 #    for i in range(3):
     response = getMessages()
     thestuff = response.json()
+    print thestuff
     messages = thestuff['response']['messages']
     for message in messages:
         if message['name'] == name and len(message['favorited_by']) != 0:
