@@ -34,7 +34,7 @@ def getLikes(name):
 #    for i in range(3):
     response = getMessages()
     thestuff = response.json()
-    print thestuff
+#    print thestuff
     messages = thestuff['response']['messages']
     for message in messages:
         if message['name'] == name and len(message['favorited_by']) != 0:
@@ -46,6 +46,7 @@ def getLikes(name):
         else:
             pass
     try:
+        print likes
         person = keywithmaxval(likes)
         members = getGroupMembers()
         for member in members:
