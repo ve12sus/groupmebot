@@ -39,11 +39,11 @@ def getLikes(name):
     for message in messages:
         if message['name'] == name and len(message['favorited_by']) != 0:
             for user_id in message['favorited_by']:
-                print likes
                 if user_id in likes:
                     likes[user_id] += 1
                 else:
                     likes[user_id] = 1
+            print likes
         else:
             pass
     try:
