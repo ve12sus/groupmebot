@@ -66,7 +66,7 @@ def getGroupMembers():
 def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/22856815/messages?token='
-    r = requests.get(msg_api + token)
+    r = requests.get(msg_api + token + "&limit=100")
     return r
         
 def botpost(text):
