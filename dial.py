@@ -65,7 +65,7 @@ def getLikes(name):
 #        botpost('nobody liked ' + name + ' =/')
 
 def getMaxLikes(data):
-    higest = max(data.values())
+    highest = max(data.values())
     return [k for k, v in data.items() if v == highest]
     
 def getGroupMembers():
