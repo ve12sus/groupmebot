@@ -51,7 +51,16 @@ def getLikes(name):
         members = getGroupMembers()
         member_ids = getMemberids(members)
         results = frozenset(user_likes).intersection(member_ids)
-        print results
+        names = convertNames(results)
+        if len(names) == 0:
+            botpost('Nobody liked ' + name + ' =/')
+        elif len(names) == 1:
+            botpost(name + ' was liked by' + names[0] + ' the most')
+        elif len(names) > 1:
+            last_name = names[-1]
+            first_names = names[:-1]
+            botpost(name + ' was most liked by ' + '. 'join(first_names) +
+                    'and ' + last_name + ' the most.(Last 100 messages)')
     except ValueError:
         print('nobody likes you')
 #    try:
@@ -63,6 +72,15 @@ def getLikes(name):
 #                        ' the most.(Last 100 messages)')
 #    except ValueError:
 #        botpost('nobody liked ' + name + ' =/')
+
+def convertNames(results):
+    nicknames = []
+    members = getGroupMembers()
+    for user_id in results:
+        for member in members:
+            if member['user_id'] == user_id:
+                nicknames.append(member['nickname'])
+    return nicknames
 
 def getMaxLikes(data):
     highest = max(data.values())
