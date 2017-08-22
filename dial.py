@@ -59,7 +59,7 @@ def getLikes(name):
         elif len(names) > 1:
             last_name = names[-1]
             first_names = names[:-1]
-            botpost(name + ' was most liked by ' + '. 'join(first_names) +
+            botpost(name + ' was most liked by ' + '. '.join(first_names) +
                     'and ' + last_name + ' the most.(Last 100 messages)')
     except ValueError:
         print('nobody likes you')
