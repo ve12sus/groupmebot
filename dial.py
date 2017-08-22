@@ -5,6 +5,7 @@ def parse(req_data):
     if re.match(r'/likes', text):
         try:
             name = captureName(text)
+            print name
             if name:
                 getLikes(name)
             else:
