@@ -48,7 +48,7 @@ def getLikes(name):
             pass
     try:
         user_likes = getMaxLikes(likes)
-        members = getGroupMembers
+        members = getGroupMembers()
         member_ids = getMemberids(members)
         results = frozenset(user_likes).intersection(member_ids)
         print results
