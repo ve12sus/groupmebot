@@ -47,14 +47,26 @@ def getLikes(name):
         else:
             pass
     try:
-        person = keywithmaxval(likes)
-        members = getGroupMembers()
-        for member in members:
-            if member['user_id'] == person:
-                botpost(member['nickname'] + ' liked ' + name +
-                        ' the most.(Last 100 messages)')
+        user_likes = getMaxLikes(likes)
+        members = getGroupMembers
+        member_ids = getUserids(members)
+        results = frozenset(user_likes).intersection(member_ids)
+        print results
     except ValueError:
-        botpost('nobody liked ' + name + ' =/')
+        print('nobody likes you')
+#    try:
+#        person = keywithmaxval(likes)
+#        members = getGroupMembers()
+#        for member in members:
+#            if member['user_id'] == person:
+#                botpost(member['nickname'] + ' liked ' + name +
+#                        ' the most.(Last 100 messages)')
+#    except ValueError:
+#        botpost('nobody liked ' + name + ' =/')
+
+def getMaxLikes(data):
+    higest = max(data.values())
+    return [k for k, v in data.items() if v == highest]
     
 def getGroupMembers():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
@@ -62,6 +74,12 @@ def getGroupMembers():
     r = requests.get(group_api + token)
     thestuff = r.json()
     return thestuff['response']['members']
+
+def getMemberids(members):
+    ids = []
+    for member in members:
+        ids.append(member['user_id'])
+    return ids    
 
 def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
