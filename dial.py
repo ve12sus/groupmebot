@@ -42,7 +42,7 @@ def getLikes(name):
             botpost(name + ' was most liked by ' + '. '.join(first_names) +
                     'and ' + last_name + ' the most.(Last 100 messages)')
     except ValueError:
-        print('nobody likes you')
+        botpost('There are no members in this group by that name')
 
 def convertNames(results):
     nicknames = []
