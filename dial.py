@@ -77,7 +77,7 @@ def getMessages():
     return r
         
 def botpost(text):
-    payload = {"bot_id" : "f29ccfedfbdc51847ca5cc387e",
+    payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
