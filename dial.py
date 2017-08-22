@@ -105,6 +105,9 @@ def captureName(text):
     m = p.search(text)                                                        
     if m:
         if m.group():
+            print m.group()
+            print m.group()[1:]
+            print m.group()[1:].rstrip()
             return m.group()[1:].rstrip()
         else:
             return None
