@@ -40,7 +40,7 @@ def getLikes(name):
             last_name = names[-1]
             first_names = names[:-1]
             botpost(name + ' was most liked by ' + ', '.join(first_names) +
-                    ' and ' + last_name + ' the most.(Last 100 messages)')
+                    ' and ' + last_name + '.(Last 100 messages)')
     except ValueError:
         botpost('There are no members in this group by that name')
 
