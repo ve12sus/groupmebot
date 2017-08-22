@@ -55,7 +55,7 @@ def getLikes(name):
         if len(names) == 0:
             botpost('Nobody liked ' + name + ' =/')
         elif len(names) == 1:
-            botpost(name + ' was liked by' + names[0] + ' the most')
+            botpost(name + ' was liked by ' + names[0] + ' the most')
         elif len(names) > 1:
             last_name = names[-1]
             first_names = names[:-1]
@@ -106,7 +106,7 @@ def getMessages():
     return r
         
 def botpost(text):
-    payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
+    payload = {"bot_id" : "5c79c5fb2dfc814bf6abadd6ee",
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
