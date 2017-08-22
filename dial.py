@@ -6,35 +6,16 @@ def parse(req_data):
         try:
             name = captureName(text)
             if name:
-                print name
                 getLikes(name)
             else:
                 print 'No name entered'
         except ValueError:
             print 'No name entered'
 
-def getLink(messages, name=None):
-    for message in messages:
-        b = "(?P<url>https?://[^\s]+)"
-        p = re.compile(b)
-        m = p.match(message['text'])
-        if (m and name):
-            if (message['sender_id'] != '393017' and 
-                    message['name'] == name):
-                botpost(m.group())
-            else:
-                pass
-        elif (m and message['sender_id'] != '393017'):
-            botpost(m.group())
-        else:
-            pass
-
 def getLikes(name):
     likes = {}
-#    for i in range(3):
     response = getMessages()
     thestuff = response.json()
-#    print thestuff
     messages = thestuff['response']['messages']
     for message in messages:
         if message['name'] == name and len(message['favorited_by']) != 0:
@@ -43,7 +24,6 @@ def getLikes(name):
                     likes[user_id] += 1
                 else:
                     likes[user_id] = 1
-            print likes
         else:
             pass
     try:
@@ -63,15 +43,6 @@ def getLikes(name):
                     'and ' + last_name + ' the most.(Last 100 messages)')
     except ValueError:
         print('nobody likes you')
-#    try:
-#        person = keywithmaxval(likes)
-#        members = getGroupMembers()
-#        for member in members:
-#            if member['user_id'] == person:
-#                botpost(member['nickname'] + ' liked ' + name +
-#                        ' the most.(Last 100 messages)')
-#    except ValueError:
-#        botpost('nobody liked ' + name + ' =/')
 
 def convertNames(results):
     nicknames = []
@@ -138,10 +109,3 @@ def captureName(text):
             return None
     else:
         return None
-
-def keywithmaxval(d):
-    """ a) create a list of the dict's keys and values; 
-        b) return the key with the max value"""  
-    v=list(d.values())
-    k=list(d.keys())
-    return k[v.index(max(v))]
