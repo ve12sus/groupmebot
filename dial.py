@@ -30,6 +30,7 @@ def getLikes(name):
     try:
         user_likes = getMaxLikes(likes)
         members = getGroupMembers()
+        print members
         member_ids = getMemberids(members)
         results = frozenset(user_likes).intersection(member_ids)
         names = convertNames(results)
@@ -78,7 +79,7 @@ def getMessages():
     return r
         
 def botpost(text):
-    payload = {"bot_id" : "1378ed64fbf35572d2bba3e69a",
+    payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
                "text" : ""}
     payload['text'] = text
     r = requests.post('https://api.groupme.com/v3/bots/post', data=payload)
@@ -104,12 +105,4 @@ def captureName(text):
     p = re.compile(b)                                                           
     m = p.search(text)                                                        
     if m:
-        if m.group():
-            print(m.group())
-            print(m.group()[1:])
-            print(m.group()[1:].rstrip())
-            return m.group()[1:].rstrip()
-        else:
-            return None
-    else:
-        return None
+        return m.group(1).rstrip()
