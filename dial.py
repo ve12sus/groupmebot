@@ -2,24 +2,21 @@ import json, re, requests
 
 def parse(req_data):
     text = req_data['text']
+    attachmentType = req_data['attachments']['type']
     if re.match(r'/likes', text):
-        try:
-            name = captureName(text)
-            print name
-            if name:
-                getLikes(name)
-            else:
-                print 'No name entered'
-        except ValueError:
-            print 'No name entered'
+       user_id = getMentionId(req_data['attachments']['type'])
+       getLikes(user_id)
 
-def getLikes(name):
+def getMentionId(attachmentType):
+    if attachmentType == 'mentions':
+        user_id = attachmentType['user_ids'][0]
+        return user_id
+
+def getLikes(id_liked):
     likes = {}
-    response = getMessages()
-    thestuff = response.json()
-    messages = thestuff['response']['messages']
+    messages = getMessages()
     for message in messages:
-        if message['name'] == name and len(message['favorited_by']) != 0:
+        if message['user_id'] == id_liked and len(message['favorited_by']) != 0:
             for user_id in message['favorited_by']:
                 if user_id in likes:
                     likes[user_id] += 1
@@ -27,12 +24,12 @@ def getLikes(name):
                     likes[user_id] = 1
         else:
             pass
-    try:
-        user_likes = getMaxLikes(likes)
+
+    if len(likes) > 0 :
+        likes_list = getMaxLikes(likes)
         members = getGroupMembers()
-        print members
         member_ids = getMemberids(members)
-        results = frozenset(user_likes).intersection(member_ids)
+        results = frozenset(likes_list).intersection(member_ids)
         names = convertNames(results)
         if len(names) == 0:
             botpost('Nobody liked ' + name + ' =/')
@@ -42,9 +39,9 @@ def getLikes(name):
             last_name = names[-1]
             first_names = names[:-1]
             botpost(name + ' was most liked by ' + ', '.join(first_names) +
-                    ' and ' + last_name + '(Last 100 messages).')
-    except ValueError:
-        botpost('There are no members in this group by that name')
+                    ' and ' + last_name + '(Last 100 messages).')            
+    else:
+        botpost('Try selecting a name after typing @')
 
 def convertNames(results):
     nicknames = []
@@ -76,7 +73,8 @@ def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/15551585/messages?token='
     r = requests.get(msg_api + token + "&limit=100")
-    return r
+    messages = r['messages']
+    return messages
         
 def botpost(text):
     payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
@@ -99,10 +97,3 @@ def paging(pages, name=None):
         else:
             getLink(messages)
         before_id = get_before_id(messages)
-
-def captureName(text):                                                        
-    b = "@(.*)"                                                                
-    p = re.compile(b)                                                           
-    m = p.search(text)                                                        
-    if m:
-        return m.group(1).rstrip()
