@@ -2,8 +2,7 @@ import json, re, requests
 
 def parse(req_data):
     if re.match(r'/likes', req_data['text']):
-        if attachments = req_data['attachments'][0] and
-            attachments['type'] == 'mentions':
+        if req_data['attachments']['type'] == 'mentions':
             getLikes(attachments['user_ids'][0])
         else:
             botpost('Type "/like @" then select the person.')
