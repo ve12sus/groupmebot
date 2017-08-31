@@ -15,7 +15,7 @@ def getMentionId(req_data):
 
 def getLikes(id_liked):
     likes = {}
-    messages = getMessages()
+    messages = getMessages()['response']['messages']
     for message in messages:
         if message['user_id'] == id_liked and len(message['favorited_by']) != 0:
             for user_id in message['favorited_by']:
@@ -74,8 +74,7 @@ def getMessages():
     token = 'NB3oRIaPWEUXwJL0cQxOMF32P57eUs4yYfVIIeaT'
     msg_api = 'https://api.groupme.com/v3/groups/15551585/messages?token='
     r = requests.get(msg_api + token + "&limit=100")
-    messages = r['messages']
-    return messages
+    return r
         
 def botpost(text):
     payload = {"bot_id" : "f9b366898c181f1f3ef76da9f6",
