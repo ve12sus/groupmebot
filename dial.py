@@ -1,10 +1,11 @@
 import json, re, requests
 
 def parse(req_data):
-    text = req_data['text']
-    if re.match(r'/likes', text):
-       user_id = getMentionId(req_data)
-       getLikes(user_id)
+    if re.match(r'/likes', req_data['text']):
+        attachments = req_data['attachments'][0]
+
+        if attachments['type'] == 'mentions':
+            getLikes(attachments['user_ids'][0])
 
 def getMentionId(req_data):
     attachmentType = req_data['attachments']['type']
