@@ -6,7 +6,7 @@ def parse(req_data):
             if req_data['attachments'][0]['type'] == 'mentions':
                 getLikes(req_data['attachments'][0]['user_ids'][0])
         else:
-            botpost('Type "/like @" then select the person.')
+            botpost('Type "/likes @" then select the person.')
 
 def getMentionId(req_data):
     attachmentType = req_data['attachments']['type']
