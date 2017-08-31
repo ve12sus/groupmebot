@@ -3,7 +3,6 @@ import json, re, requests
 def parse(req_data):
     if re.match(r'/likes', req_data['text']):
         attachments = req_data['attachments'][0]
-
         if attachments['type'] == 'mentions':
             getLikes(attachments['user_ids'][0])
 
@@ -32,6 +31,10 @@ def getLikes(id_liked):
         member_ids = getMemberids(members)
         results = frozenset(likes_list).intersection(member_ids)
         names = convertNames(results)
+        name = ""
+        for member in members:
+            if member['user_id'] == id_liked:
+                name = member['nickname']
         if len(names) == 0:
             botpost('Nobody liked ' + name + ' =/')
         elif len(names) == 1:
