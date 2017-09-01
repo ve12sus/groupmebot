@@ -8,14 +8,13 @@ def parse(req_data):
         else:
             botpost('Type "/likes @" then select the person.')
 
-def getMentionId(req_data):
-    attachmentType = req_data['attachments']['type']
-    if attachmentType == 'mentions':
-        user_id = attachmentType['user_ids'][0]
-        return user_id
-
 def getLikes(id_liked):
     likes = {}
+    members = getGroupMembers()
+    name = ''
+    for member in members:
+        if member['user_id'] == id_liked:
+            name = member['nickname']
     messages = getMessages()['response']['messages']
     for message in messages:
         if message['user_id'] == id_liked and len(message['favorited_by']) != 0:
@@ -27,27 +26,21 @@ def getLikes(id_liked):
         else:
             pass
 
-    if len(likes) > 0 :
+
+    if not likes:
+        botpost('Nobody liked ' + name + ' =/')
+    else:
         likes_list = getMaxLikes(likes)
-        members = getGroupMembers()
         member_ids = getMemberids(members)
         results = frozenset(likes_list).intersection(member_ids)
         names = convertNames(results)
-        name = ""
-        for member in members:
-            if member['user_id'] == id_liked:
-                name = member['nickname']
-        if len(names) == 0:
-            botpost('Nobody liked ' + name + ' =/')
-        elif len(names) == 1:
+        if len(names) == 1:
             botpost(name + ' was liked by ' + names[0] + ' the most.')
         elif len(names) > 1:
             last_name = names[-1]
             first_names = names[:-1]
             botpost(name + ' was most liked by ' + ', '.join(first_names) +
-                    ' and ' + last_name + '(Last 100 messages).')            
-    else:
-        botpost('Try selecting a name after typing @')
+                    ' and ' + last_name + ' (Last 100 messages).')            
 
 def convertNames(results):
     nicknames = []
